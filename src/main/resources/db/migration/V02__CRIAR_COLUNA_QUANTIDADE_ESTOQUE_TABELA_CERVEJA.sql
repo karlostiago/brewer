@@ -1,0 +1,1 @@
+ALTER TABLE public.cerveja ADD COLUMN quantidade_estoque int8;

@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+/**
+	Utilitarios
+**/
+
+.bw-glyphicon-large {
+	font-size: 18px;
+}
+
+/**
+	Componentes
+**/
+
+.bw-field-action__icon {
+	margin: 5px 0 0 8px;
+}
+
+.bw-field-action {
+	display: flex;
+}

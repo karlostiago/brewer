@@ -19,6 +19,8 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.algaworks.brewer.controller.CervejasController;
 
+import nz.net.ultraq.thymeleaf.LayoutDialect;
+
 @EnableWebMvc
 @Configuration
 @ComponentScan( basePackageClasses = { CervejasController.class } )
@@ -44,6 +46,8 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 		SpringTemplateEngine engine = new SpringTemplateEngine();
 		engine.setEnableSpringELCompiler(true);
 		engine.setTemplateResolver(templateResolver());
+		
+		engine.addDialect(new LayoutDialect());
 		return engine;
 	}
 	
