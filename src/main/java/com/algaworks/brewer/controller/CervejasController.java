@@ -14,33 +14,39 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.algaworks.brewer.enums.Origem;
 import com.algaworks.brewer.enums.Sabor;
 import com.algaworks.brewer.model.Cerveja;
-import com.algaworks.brewer.repository.Estilos;
+import com.algaworks.brewer.service.CervejaService;
+import com.algaworks.brewer.service.EstiloService;
 
 @Controller
+@RequestMapping("/cervejas")
 public class CervejasController {
 	
 	@Autowired
-	private Estilos estilos;
+	private EstiloService estiloService;
 	
-	@RequestMapping("/cervejas/novo")
+	@Autowired
+	private CervejaService cervejaService;
+	
+	@RequestMapping("/novo")
 	public ModelAndView novo(Cerveja cerveja) {
 		ModelAndView mv = new ModelAndView("cerveja/cadastro-cerveja");
 		mv.addObject("sabores", Sabor.values());
-		mv.addObject("estilos", estilos.findAll());
+		mv.addObject("estilos", estiloService.todos());
 		mv.addObject("origens", Origem.values());
 		
 		return mv;
 	}
 	
-	@RequestMapping(value = "/cervejas/novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes attributes) {
 		
 		if(result.hasErrors()) {
 			return novo(cerveja);
 		}
 		
-		System.out.println(">>>>>> cadastrando cerveja...." + cerveja.getSku() + " - " + cerveja.getNome());
-		attributes.addFlashAttribute("mensagem", "cerveja salva com sucesso.");
+		cervejaService.save(cerveja);
+
+		attributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso.");
 		return new ModelAndView("redirect:/cervejas/novo");
 	}
 }
