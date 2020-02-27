@@ -13,9 +13,19 @@
 	<section layout:fragment="content">
 		<div class="page-header">
 			<div class="container-fluid">
-				<h1>
-					Cadastro de cerveja
-				</h1>
+				<div class="row">
+					<div class="col-sm-10">
+						<h1> Cadastro de cerveja </h1>					
+					</div>
+					
+					<div class="col-sm-2">
+						<div class="aw-page-header-controls">
+							<a class="btn btn-default" th:href="@{/cervejas}">
+								<i class="glyphicon glyphicon-search" ></i> <span class="hidden-xs hidden-sm">Pesquisa</span>
+							</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		
@@ -27,14 +37,14 @@
 				<div class="row">
 					<div class="col-sm-2" brewer:haserror="sku">
 						<div class="form-group">
-							<label for="sku" class="control-label">SKU: *</label>
+							<label for="sku" class="control-label bw-required">SKU:</label>
 							<input type="text" th:field="*{sku}" id="sku" name="sku" class="form-control" />
 						</div>
 					</div>
 					
 					<div class="col-sm-10" brewer:haserror="nome">
 						<div class="form-group">
-							<label for="nome" class="control-label">Nome: *</label>
+							<label for="nome" class="control-label bw-required">Nome:</label>
 							<input type="text" th:field="*{nome}" id="nome" name="nome" class="form-control" />
 						</div>
 					</div>
@@ -43,7 +53,7 @@
 				<div class="row">
 					<div class="col-sm-12" brewer:haserror="descricao">
 						<div class="form-group">
-							<label for="descricao" class="control-label">Descrição:</label>
+							<label for="descricao" class="control-label bw-required">Descrição:</label>
 							<textarea th:field="*{descricao}" id="descricao" rows="3" class="form-control"></textarea>
 						</div>
 					</div>
@@ -52,7 +62,7 @@
 				<div class="row">
 					<div class="col-sm-3" brewer:haserror="estilo">
 						<div class="form-group">
-							<label for="estilo" class="control-label">Estilo:</label>
+							<label for="estilo" class="control-label bw-required">Estilo:</label>
 							<div class="bw-field-action">
 								<select th:field="*{estilo}" id="estilo" class="form-control">
 									<option value="">Selecione o estilo</option>
@@ -70,7 +80,7 @@
 					
 					<div class="col-sm-3" brewer:haserror="sabor">
 						<div class="form-group">
-							<label for="sabor" class="control-label">Sabor:</label>
+							<label for="sabor" class="control-label bw-required">Sabor:</label>
 							<select th:field="*{sabor}" id="sabor" class="form-control">
 								<option value="">Selecione o sabor</option>
 								<option th:each="sabor : ${sabores}" th:value="${sabor}" th:text="${sabor.descricao}"/>
@@ -80,7 +90,7 @@
 					
 					<div class="col-sm-3" brewer:haserror="teorAlcoolico">
 						<div class="form-group">
-							<label for="teorAlcoolico" class="control-label">Teor alcoólico:</label>
+							<label for="teorAlcoolico" class="control-label bw-required">Teor alcoólico:</label>
 							<div class="input-group">
 								<input type="text" th:field="*{teorAlcoolico}" id="teorAlcoolico" name="teorAlcoolico" class="form-control js-decimal" />
 								<div class="input-group-addon">%</div>
@@ -90,7 +100,7 @@
 					
 					<div class="col-lg-3 col-sm-6" brewer:haserror="origem">
 						<div class="form-group">
-							<label for="origem" class="control-label">Origem:</label>
+							<label for="origem" class="control-label bw-required">Origem:</label>
 							<div>
 								<th:block th:each="origem : ${origens}">
 									<div class="radio radio-inline">
@@ -106,7 +116,7 @@
 				<div class="row">
 					<div class="col-sm-3" brewer:haserror="valor">
 						<div class="form-group">
-							<label for="valor" class="control-label">Valor:</label>
+							<label for="valor" class="control-label bw-required">Valor:</label>
 							<div class="input-group">
 								<input th:field="*{valor}" type="text" id="valor" name="valor" class="form-control js-decimal" />
 								<div class="input-group-addon">R$</div>
@@ -116,7 +126,7 @@
 					
 					<div class="col-sm-3" brewer:haserror="comissao">
 						<div class="form-group">
-							<label for="comissao" class="control-label">Comissão:</label>
+							<label for="comissao" class="control-label bw-required">Comissão:</label>
 							<div class="input-group">
 								<input th:field="*{comissao}" type="text" id="comissao" name="comissao" class="form-control js-decimal" />
 								<div class="input-group-addon">%</div>
@@ -126,7 +136,7 @@
 					
 					<div class="col-sm-3" brewer:haserror="quantidadeEstoque">
 						<div class="form-group">
-							<label for="estoque" class="control-label">Estoque:</label>
+							<label for="estoque" class="control-label bw-required">Estoque:</label>
 							<input th:field="*{quantidadeEstoque}" type="text" id="estoque" name="estoque" class="form-control js-integer" />
 						</div>
 					</div>	
@@ -140,10 +150,12 @@
 							
 							<label class="control-label">Foto:</label>
 							
-							<div class="bw-upload js-upload">
-								<i class="glyphicon glyphicon-cloud-upload"></i>
-								<span>Arraste a foto aqui ou </span>
-								<a class="bw-upload-form-file">selecione <input type="file" accept=".jpg, .png, .jpeg" /> </a>
+							<div class="bw-upload" th:attr="data-url-fotos=@{/fotos}">
+								<div class="js-upload">
+									<i class="glyphicon glyphicon-cloud-upload"></i>
+									<span>Arraste a foto aqui ou </span>
+									<a class="bw-upload-form-file">selecione <input type="file" accept=".jpg, .png, .jpeg" /> </a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -156,24 +168,12 @@
 		</div>
 		
 		<div th:replace="extras/cadastro-rapido-estilo :: modal"></div>	
+		<th:block th:replace="hbs/foto-cerveja"></th:block>
 	</section>
 	
 	<th:block layout:fragment="javascript-extra">
 		<script th:src="@{/javascripts/estilo.cadastro-rapido.js}"></script>
-		
-		<script>
-			$(function() {
-				 UIkit.upload('.js-upload', {
-					type: 'json',
-					filelimit: 1,
-					allow: '*.(jpg|jpeg|png)',
-					url: '/brewer/fotos',
-					complete: function(resposta) {
-						$('input[name=foto]').val(resposta.response.nome);
-						$('input[name=contentType]').val(resposta.response.contentType);
-					}
-				 });
-			});
-		</script>
+		<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+		<script th:src="@{/javascripts/cerveja.upload.foto.js}"></script>
 	</th:block>
 </html>

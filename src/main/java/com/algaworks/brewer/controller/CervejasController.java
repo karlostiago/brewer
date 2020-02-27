@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.algaworks.brewer.enums.Origem;
 import com.algaworks.brewer.enums.Sabor;
 import com.algaworks.brewer.model.Cerveja;
+import com.algaworks.brewer.repository.filter.CervejaFilter;
 import com.algaworks.brewer.service.CervejaService;
 import com.algaworks.brewer.service.EstiloService;
 
@@ -48,5 +50,16 @@ public class CervejasController {
 
 		attributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso.");
 		return new ModelAndView("redirect:/cervejas/novo");
+	}
+	
+	@GetMapping
+	public ModelAndView pesquisar(CervejaFilter cervejaFilter, BindingResult result) {
+		ModelAndView mv = new ModelAndView("cerveja/pesquisa-cerveja");
+		mv.addObject("sabores", Sabor.values());
+		mv.addObject("estilos", estiloService.todos());
+		mv.addObject("origens", Origem.values());
+		mv.addObject("cervejas", cervejaService.filtrar(cervejaFilter));
+		
+		return mv;
 	}
 }
