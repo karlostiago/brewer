@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +40,7 @@ public class CervejaService extends AbstractService<Cerveja, Long> {
 		return cervejas.findAll();
 	}
 	
-	public List<Cerveja> filtrar(CervejaFilter filter) {
-		return cervejas.filtrar(filter);
+	public Page<Cerveja> filtrar(CervejaFilter filter, Pageable pageable) {
+		return cervejas.filtrar(filter, pageable);
 	}
 }

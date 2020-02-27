@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:brewer="http://www.brewer.org"
+	layout:decorator="layout/layout-padrao">
+	
+	<head>
+		<title>Brewer - Pesquisa de estilo</title>
+	</head>
+	
+	<section layout:fragment="content">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-10">
+						<h1> Pesquisa de estilos </h1>					
+					</div>
+					
+					<div class="col-sm-2">
+						<div class="aw-page-header-controls">
+							<a class="btn btn-default" th:href="@{/estilos/novo}">
+								<i class="glyphicon glyphicon-plus-sign" ></i> <span class="hidden-xs hidden-sm">Novo estilo</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container-fluid">
+			<form method="get" th:object="${estiloFilter}" class="form-vertical  js-form-loading">
+				
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label for="nome" class="control-label bw-required">Nome:</label>
+							<input type="text" class="form-control" id="nome" th:field="*{nome}" autofocus="autofocus" />
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Pesquisar</button>
+				</div>
+			</form>
+			
+			<div class="table-responsive bw-tabela-simples">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th class="table-estilos-col-codigo">
+								<brewer:order page="pagina" field="codigo" text="Código" />
+							</th>
+							<th class="table-estilos-col-nome">
+								<brewer:order page="pagina" field="nome" text="Nome" />
+							</th>
+							<th class="table-cervejas-col-acoes"></th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr th:each="estilo : ${pagina.content}">
+							<td th:text="${estilo.codigo}" class="text-center"></td>
+							<td th:text="${estilo.nome}" class="text-left"></td>
+							<td class="text-center">
+								<a class="btn btn-link btn-xs" title="Editar">
+									<i class="glyphicon glyphicon-pencil"></i>
+								</a>
+								
+								<a class="btn btn-link btn-xs" title="Excluir">
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+							</td>
+						</tr>
+						
+						<tr th:if="${pagina.empty}">
+							<td colspan="3">Nenhum estilo encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<brewer:paginator page="pagina" />
+		</div>
+	</section>
+</html>

@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.algaworks.brewer.exceptions.BrewerRuntimeException;
 import com.algaworks.brewer.model.Estilo;
 import com.algaworks.brewer.repository.Estilos;
+import com.algaworks.brewer.repository.filter.EstiloFilter;
 
 @Service
 public class EstiloService extends AbstractService<Estilo, Long> {
@@ -36,5 +39,9 @@ public class EstiloService extends AbstractService<Estilo, Long> {
 	
 	public List<Estilo> todos() {
 		return estilos.findAll();
+	}
+
+	public Page<Estilo> filtrar(EstiloFilter filter, Pageable pageable) {
+		return estilos.filtrar(filter, pageable);
 	}
 }

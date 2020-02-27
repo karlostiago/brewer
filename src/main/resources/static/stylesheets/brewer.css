@@ -17,6 +17,14 @@ label.bw-required:after {
 	content: " * "
 }
 
+.bw-text-left {
+	float: left;
+}
+
+.bw-text-right {
+	float: right;
+}
+
 /**
 	Componentes
 **/
@@ -82,7 +90,8 @@ label.bw-required:after {
 	width: 50px;	
 }
 
-.table-cervejas-col-sku {
+.table-cervejas-col-sku,
+.table-estilos-col-codigo {
 	width: 90px;
 	text-align: center;
 }
