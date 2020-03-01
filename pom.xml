@@ -53,6 +53,9 @@
 		
 		<!-- thumbnailator - Gerar thumbnail -->
 		<thumbnailator.version>0.4.8</thumbnailator.version>
+		
+		<!-- Thymeleaf Extras Attributes -->
+		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
 	</properties>
 	
 	<build>
@@ -204,5 +207,12 @@
 		 	<version>${thumbnailator.version}</version>
 		 	<scope>compile</scope>
 		 </dependency>
+		 
+		 <dependency>
+		    <groupId>com.github.mxab.thymeleaf.extras</groupId>
+		    <artifactId>thymeleaf-extras-data-attribute</artifactId>
+		    <version>${thymeleaf-extras-data-attribute.version}</version>
+		    <scope>compile</scope>
+		</dependency>
 	</dependencies>
 </project>

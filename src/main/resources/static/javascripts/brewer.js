@@ -16,6 +16,25 @@ Brewer.MaskMoney = (function() {
 	
 }());
 
+Brewer.MaskCep = (function() {
+	
+	function MaskCep() {
+		this.cepMask = $('.js-cep-mask');
+	}
+	
+	MaskCep.prototype.enable = function() {
+		this.cepMask.on('keyup', onKeyUpMaskCep.bind(this));
+	}
+	
+	function onKeyUpMaskCep(event) {
+		var cepValue = $(event.target);
+		cepValue.mask(cepValue.data('mascara'));
+	}
+	
+	return MaskCep;
+	
+}());
+
 Brewer.MaskPhone = (function() {
 	
 	function MaskPhone() {
@@ -46,4 +65,7 @@ $(function() {
 
 	var maskPhone = new Brewer.MaskPhone();
 	maskPhone.enable();
+	
+	var maskCep = new Brewer.MaskCep();
+	maskCep.enable();
 });

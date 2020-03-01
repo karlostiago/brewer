@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -18,7 +17,7 @@ import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.repository.filter.CervejaFilter;
 import com.algaworks.brewer.repository.helper.CervejasQueries;
 
-public class CervejasImpl extends AbstractHelperImpl implements CervejasQueries {
+public class CervejasImpl extends AbstractHelperImpl<Cerveja> implements CervejasQueries {
 	
 	@PersistenceContext
 	private EntityManager manager;
@@ -28,8 +27,7 @@ public class CervejasImpl extends AbstractHelperImpl implements CervejasQueries 
 	@Transactional(readOnly = true)
 	public Page<Cerveja> filtrar(CervejaFilter filter, Pageable pageable) {
 		
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
-		
+		Criteria criteria = getSession(Cerveja.class);
 		paginator(criteria, pageable);
 		adicionarFiltro(filter, criteria);
 		
@@ -70,7 +68,7 @@ public class CervejasImpl extends AbstractHelperImpl implements CervejasQueries 
 	}
 
 	private Long total(CervejaFilter filter) {
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
+		Criteria criteria = getSession(Cerveja.class);
 		adicionarFiltro(filter, criteria);
 		criteria.setProjection(Projections.rowCount());
 		return (Long) criteria.uniqueResult();

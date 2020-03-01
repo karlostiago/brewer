@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -18,7 +17,7 @@ import com.algaworks.brewer.model.Estilo;
 import com.algaworks.brewer.repository.filter.EstiloFilter;
 import com.algaworks.brewer.repository.helper.EstilosQueries;
 
-public class EstilosImpl extends AbstractHelperImpl implements EstilosQueries {
+public class EstilosImpl extends AbstractHelperImpl<Estilo> implements EstilosQueries {
 	
 	@PersistenceContext
 	private EntityManager manager;
@@ -28,8 +27,7 @@ public class EstilosImpl extends AbstractHelperImpl implements EstilosQueries {
 	@Transactional(readOnly = true)
 	public Page<Estilo> filtrar(EstiloFilter filter, Pageable pageable) {
 		
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Estilo.class);
-		
+		Criteria criteria = getSession(Estilo.class);
 		paginator(criteria, pageable);
 		adicionarFiltro(filter, criteria);
 		
@@ -45,7 +43,7 @@ public class EstilosImpl extends AbstractHelperImpl implements EstilosQueries {
 	}
 
 	private Long total(EstiloFilter filter) {
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Estilo.class);
+		Criteria criteria = getSession(Estilo.class);
 		adicionarFiltro(filter, criteria);
 		criteria.setProjection(Projections.rowCount());
 		return (Long) criteria.uniqueResult();

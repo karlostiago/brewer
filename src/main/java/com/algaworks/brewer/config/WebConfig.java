@@ -31,6 +31,7 @@ import com.algaworks.brewer.converter.EstiloConverter;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import com.algaworks.brewer.thymeleaf.BrewerDialect;
+import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 
 @EnableWebMvc
 @Configuration
@@ -61,6 +62,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 		
 		engine.addDialect(new LayoutDialect());
 		engine.addDialect(new BrewerDialect());
+		engine.addDialect(new DataAttributeDialect());
 		return engine;
 	}
 	
