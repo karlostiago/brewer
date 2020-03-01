@@ -1,8 +1,5 @@
 package com.algaworks.brewer.repository.helper.impl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
@@ -18,10 +15,7 @@ import com.algaworks.brewer.repository.filter.CervejaFilter;
 import com.algaworks.brewer.repository.helper.CervejasQueries;
 
 public class CervejasImpl extends AbstractHelperImpl<Cerveja> implements CervejasQueries {
-	
-	@PersistenceContext
-	private EntityManager manager;
-	
+		
 	@Override
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
