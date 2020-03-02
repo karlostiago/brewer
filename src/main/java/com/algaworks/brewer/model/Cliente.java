@@ -13,12 +13,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.group.GroupSequenceProvider;
 
 import com.algaworks.brewer.enums.TipoPessoa;
+import com.algaworks.brewer.model.validation.ClienteGroupSequenceProvider;
+import com.algaworks.brewer.model.validation.group.CnpjGroup;
+import com.algaworks.brewer.model.validation.group.CpfGroup;
 
 @Entity
 @Table(name = "cliente")
+@GroupSequenceProvider(ClienteGroupSequenceProvider.class)
 public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 6325861829652918840L;
@@ -27,19 +35,23 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
-	@NotBlank
+	@NotBlank(message = "O nome é obrigatório")
 	private String nome;
 
-	@NotNull
+	@NotNull(message = "Tipo pessoa é obrigatório")
 	@Column(name = "tipo_pessoa")
 	@Enumerated(EnumType.STRING)
 	private TipoPessoa tipoPessoa;
-
+	
+	@NotBlank(message = "CPF/CNPJ é obrigatório")
+	@CPF(groups = CpfGroup.class)
+	@CNPJ(groups = CnpjGroup.class)
 	@Column(name = "cpf_cnpj")
 	private String cpfCnpj;
 
 	private String telefone;
-
+	
+	@Email(message = "email inválido")
 	private String email;
 
 	@Embedded

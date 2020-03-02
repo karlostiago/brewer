@@ -13,3 +13,11 @@ git status
 git add .
 git commit -m"implementando paginacao na tela de pesquisa cerveja e pesquisa estilo"
 git push origin master 
+git status
+git add .
+git commit -m"implementando mascara cep cpf e cnpj cadastro de clientes"
+git push origin master 
+git status
+git add .
+git commit -m"implementando e criando migracao tabela cliente"
+git push origin master 
