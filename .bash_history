@@ -21,3 +21,7 @@ git status
 git add .
 git commit -m"implementando e criando migracao tabela cliente"
 git push origin master 
+git status
+git add .
+git commit -m"validando campo cpf e cnpj via javascript"
+git push origin master 

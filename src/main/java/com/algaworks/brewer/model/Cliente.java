@@ -10,6 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -56,7 +59,24 @@ public class Cliente implements Serializable {
 
 	@Embedded
 	private Endereco endereco;
-
+	
+	@PrePersist
+	@PreUpdate
+	private void prePersistUpdate() {
+		this.cpfCnpj = getCpfCnpjWithoutFormatter();
+		this.nome = this.nome.toUpperCase();
+		this.email = this.email.toUpperCase();
+		this.endereco.setCep(this.endereco.getCep().toUpperCase());
+		this.endereco.setComplemento(this.endereco.getComplemento().toUpperCase());
+		this.endereco.setNumero(this.endereco.getNumero().toUpperCase());
+		this.endereco.setLogradouro(this.endereco.getLogradouro().toUpperCase());
+	}
+	
+	@PostLoad
+	public void postLoad() {
+		this.cpfCnpj = tipoPessoa.formatter(cpfCnpj);
+	}
+	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -111,5 +131,34 @@ public class Cliente implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+	
+	public String getCpfCnpjWithoutFormatter() {
+		return TipoPessoa.removeFormatter(this.cpfCnpj);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
 	}
 }

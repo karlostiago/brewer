@@ -23,7 +23,7 @@ Brewer.ComboCidade = (function() {
 	
 	function ComboCidade(comboEstado) {
 		this.comboEstado = comboEstado;
-		this.combo = $('#cidade');
+		this.comboCidade = $('#cidade');
 		this.loading = $('.js-loading');
 		this.inputHiddenCidadeSelecionada = $('#inputHiddenCidadeSelecionada');
 	}
@@ -42,7 +42,7 @@ Brewer.ComboCidade = (function() {
 	function initializerCidades(codigoEstado) {
 		if(codigoEstado) {
 			var resposta = $.ajax({
-				url: this.combo.data('url'),
+				url: this.comboCidade.data('url'),
 				method: 'get',
 				contentType: 'application/json',
 				data: {'estado': codigoEstado },
@@ -64,12 +64,12 @@ Brewer.ComboCidade = (function() {
 			options.push('<option value="' + cidade.codigo + '">' + cidade.nome + '</option>');
 		});
 		
-		this.combo.html(options.join(''));
-		this.combo.removeAttr('disabled');
+		this.comboCidade.html(options.join(''));
+		this.comboCidade.removeAttr('disabled');
 		
-		var codigoCidadeSelecionada = this.inputHiddenCidadeSelecionada;
+		var codigoCidadeSelecionada = this.inputHiddenCidadeSelecionada.val();		
 		if(codigoCidadeSelecionada) {
-			this.combo.val(codigoCidadeSelecionada);
+			this.comboCidade.val(codigoCidadeSelecionada);
 		}
 	}
 	
@@ -83,9 +83,9 @@ Brewer.ComboCidade = (function() {
 	}
 	
 	function reset() {
-		this.combo.html("<option value=''>Selecione a cidade</option>");
-		this.combo.val('');
-		this.combo.attr('disabled', 'disabled');
+		this.comboCidade.html("<option value=''>Selecione a cidade</option>");
+		this.comboCidade.val('');
+		this.comboCidade.attr('disabled', 'disabled');
 	}
 	
 	return ComboCidade;

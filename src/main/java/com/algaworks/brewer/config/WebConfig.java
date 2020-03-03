@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.Locale;
 
 import org.springframework.beans.BeansException;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -30,15 +33,16 @@ import com.algaworks.brewer.controller.CervejasController;
 import com.algaworks.brewer.converter.CidadeConverter;
 import com.algaworks.brewer.converter.EstadoConverter;
 import com.algaworks.brewer.converter.EstiloConverter;
-
-import nz.net.ultraq.thymeleaf.LayoutDialect;
 import com.algaworks.brewer.thymeleaf.BrewerDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
+
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @EnableWebMvc
 @Configuration
 @ComponentScan( basePackageClasses = { CervejasController.class } )
 @EnableSpringDataWebSupport
+@EnableCaching
 public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 	
 	private ApplicationContext applicationContext;
@@ -103,5 +107,10 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 	@Bean
 	public LocaleResolver localeResolver() {
 		return new FixedLocaleResolver(new Locale("pt", "BR"));
+	}
+	
+	@Bean
+	public CacheManager cacheManager() {
+		return new ConcurrentMapCacheManager();
 	}
 }

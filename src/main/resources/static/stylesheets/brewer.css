@@ -91,17 +91,26 @@ label.bw-required:after {
 }
 
 .table-cervejas-col-sku,
-.table-estilos-col-codigo {
+.table-estilos-col-codigo,
+.table-clientes-col-codigo,
+.table-cidades-col-codigo {
 	width: 90px;
 	text-align: center;
 }
 
-.table-cervejas-col-nome {
-	
+.table-cervejas-col-estilo,
+.table-clientes-col-tipoPessoa {
+	width: 120px;
 }
 
-.table-cervejas-col-estilo {
-	width: 120px;
+.table-clientes-col-telefone,
+.table-clientes-col-cpfCnpj,
+.table-cidades-col-estado {
+	width: 160px;
+}
+
+.table-clientes-col-cidade-estado {
+	width: 180px;	
 }
 
 .table-cervejas-col-origem {
