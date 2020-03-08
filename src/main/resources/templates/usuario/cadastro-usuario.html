@@ -2,6 +2,7 @@
 <html lang="pt" 
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
+	xmlns:brewer="http://www.brewer.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout/layout-padrao">
 	
@@ -25,44 +26,47 @@
 				<i class="fa  fa-exclamation-circle"></i> Já existe um produto com o nome informado.
 			</div> -->
 			
-			<form method="post" th:object="${cerveja}" class="form-vertical  js-form-loading">
+			<form method="post" th:object="${usuario}" class="form-vertical  js-form-loading">
+				
+				<brewer:message  />
+				
 				<div class="row">
-					<div class="col-sm-12">
+					<div class="col-sm-12" brewer:haserror="nome">
 						<div class="form-group">
-							<label for="nome">Nome:</label>
-							<input type="text" class="form-control" id="nome" autofocus="autofocus" />
+							<label for="nome" class="control-label bw-required">Nome:</label>
+							<input type="text" class="form-control" th:field="*{nome}" id="nome" autofocus="autofocus" />
 						</div>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-6" brewer:haserror="email">
 						<div class="form-group">
-							<label>Email:</label>
-							<input type="text" class="form-control" />
+							<label class="control-label bw-required">Email:</label>
+							<input type="text" class="form-control" th:field="*{email}" />
 						</div>
 					</div>
 					
-					<div class="col-sm-4">
+					<div class="col-sm-4" brewer:haserror="dataNascimento">
 						<div class="form-group">
-							<label>Data Nascimento:</label>
-							<input type="text" class="form-control" />
+							<label class="control-label bw-required">Data Nascimento:</label>
+							<input type="text" class="form-control" th:field="*{dataNascimento}" />
 						</div>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-4" brewer:haserror="senha">
 						<div class="form-group">
-							<label>Senha:</label>
-							<input type="text" class="form-control" />
+							<label class="control-label bw-required">Senha:</label>
+							<input type="password" class="form-control" th:field="*{senha}" />
 						</div>
 					</div>
 					
-					<div class="col-sm-4">
+					<div class="col-sm-4" brewer:haserror="confirmacaoDeSenha">
 						<div class="form-group">
-							<label>Confirmar senha:</label>
-							<input type="text" class="form-control" />
+							<label class="control-label bw-required">Confirmar senha:</label>
+							<input type="password" class="form-control" th:field="*{confirmacaoDeSenha}" />
 						</div>
 					</div>
 					
@@ -70,7 +74,7 @@
 						<div class="form-group">
 							<label>Status:</label>
 							<div>
-								<input type="checkbox" class="js-status" data-size="small" 
+								<input type="checkbox" class="js-status" data-size="small" th:field="*{ativo}"
 									data-on-text="Ativo" data-off-text="Inativo" data-off-color="danger" /> 
 							</div>
 						</div>
@@ -78,13 +82,13 @@
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-6" brewer:haserror="grupos">
 						<div class="form-group">
-							<label>Grupos:</label>
+							<label class="control-label bw-required">Grupos:</label>
 							<div>
 								<div class="checkbox checkbox-inline">
 									<input type="checkbox" /> 
-									<label> Administrador </label>
+									<label > Administrador </label>
 								</div>
 								
 								<div class="checkbox checkbox-inline">

@@ -57,8 +57,8 @@
 		<!-- Thymeleaf Extras Attributes -->
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
 		
-		<!-- Cache - Guava -->
-		<guava.version>20.0</guava.version>
+		<!-- Apache Beans Util -->
+		<commons-beanutils.version>1.9.2</commons-beanutils.version>
 	</properties>
 	
 	<build>
@@ -225,11 +225,11 @@
 		    <scope>compile</scope>
 		</dependency>
 		
-		<!-- Cache -Guava -->
+		<!-- Apache Beans Util -->
 		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>${guava.version}</version>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons-beanutils.version}</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
