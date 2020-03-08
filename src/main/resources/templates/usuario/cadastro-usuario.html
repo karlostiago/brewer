@@ -50,13 +50,13 @@
 					<div class="col-sm-4" brewer:haserror="dataNascimento">
 						<div class="form-group">
 							<label class="control-label bw-required">Data Nascimento:</label>
-							<input type="text" class="form-control" th:field="*{dataNascimento}" />
+							<input type="text" class="form-control js-date" th:field="*{dataNascimento}" autocomplete="off" />
 						</div>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-4" brewer:haserror="senha">
+					<div class="col-sm-4" brewer:haserror="senha" th:classappend="${usuario.novo} ? bw-required">
 						<div class="form-group">
 							<label class="control-label bw-required">Senha:</label>
 							<input type="password" class="form-control" th:field="*{senha}" />
@@ -86,15 +86,12 @@
 						<div class="form-group">
 							<label class="control-label bw-required">Grupos:</label>
 							<div>
-								<div class="checkbox checkbox-inline">
-									<input type="checkbox" /> 
-									<label > Administrador </label>
-								</div>
-								
-								<div class="checkbox checkbox-inline">
-									<input type="checkbox" /> 
-									<label> Vendedor </label>
-								</div>
+								<th:block th:each="grupo : ${grupos}">
+									<div class="checkbox checkbox-inline">
+										<input th:id="${grupo.nome}" th:value="${grupo.codigo}" th:field="*{grupos}" type="checkbox" /> 
+										<label th:for="${grupo.nome}" th:text="${grupo.nome}"> Administrador </label>
+									</div>
+								</th:block>
 							</div>
 						</div>
 					</div>

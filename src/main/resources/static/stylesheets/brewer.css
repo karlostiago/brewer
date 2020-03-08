@@ -25,6 +25,11 @@ label.bw-required:after {
 	float: right;
 }
 
+.checkbox input[type="checkbox"]:checked + input + label::after {
+	font-family: 'FontAwesome';
+	content: "\f00c";
+}
+
 /**
 	Componentes
 **/

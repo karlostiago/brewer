@@ -15,13 +15,17 @@ public class AbstractModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	
+		
 	public Long getCodigo() {
 		return codigo;
 	}
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
+	}
+	
+	public boolean isNovo() {
+		return this.codigo == null;
 	}
 
 	@Override
