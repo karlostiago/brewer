@@ -1,5 +1,6 @@
 package com.algaworks.brewer.repository.helper.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.Criteria;
@@ -28,6 +29,15 @@ public class UsuariosImpl extends AbstractHelperImpl<Usuario> implements Usuario
 		criteria.add(Restrictions.eq("email", email.toUpperCase()));
 		criteria.add(Restrictions.eq("ativo", true));
 		return criteria.list().stream().findFirst();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<String> permissoes(Usuario usuario) {
+		return getManager().createQuery(
+				"select distinct p.nome from Usuario u inner join u.grupos g inner join g.permissoes p where u = :usuario", String.class)
+					.setParameter("usuario", usuario)
+					.getResultList();
 	}
 
 }

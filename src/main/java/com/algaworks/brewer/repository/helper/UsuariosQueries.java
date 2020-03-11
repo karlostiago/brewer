@@ -1,5 +1,6 @@
 package com.algaworks.brewer.repository.helper;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -12,4 +13,5 @@ public interface UsuariosQueries {
 	
 	public Page<Usuario> filtrar(UsuarioFilter filter, Pageable pageable);
 	public Optional<Usuario> porEmailAtivo(String email);
+	public List<String> permissoes(Usuario usuario);
 }
