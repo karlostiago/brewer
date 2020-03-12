@@ -17,6 +17,7 @@ Brewer.UploadFoto = (function() {
 			filelimit: 1,
 			allow: '*.(jpg|jpeg|png)',
 			url: this.containerFoto.data('url-fotos'),
+//			beforeSend: addCsrfToken,
 			complete: onUploadComplete.bind(this)
 		}); 
 		
@@ -55,6 +56,12 @@ Brewer.UploadFoto = (function() {
 		this.upload.removeClass('hide');	
 		this.nomeFoto.val('');
 		this.contentType.val('');
+	}
+	
+	function addCsrfToken(xhr) {
+		var token = $('input[name=_csrf]').val();
+		var header = $('input[name=_csrf_header]').val();
+		xhr.setRequestHeader(header, token);
 	}
 	
 	return UploadFoto;
