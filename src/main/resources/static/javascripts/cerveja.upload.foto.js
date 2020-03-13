@@ -17,8 +17,8 @@ Brewer.UploadFoto = (function() {
 			filelimit: 1,
 			allow: '*.(jpg|jpeg|png)',
 			url: this.containerFoto.data('url-fotos'),
-//			beforeSend: addCsrfToken,
-			complete: onUploadComplete.bind(this)
+			complete: onUploadComplete.bind(this),
+			beforeSend: addCsrfToken
 		}); 
 		
 		if(this.nomeFoto.val()) {
@@ -58,10 +58,9 @@ Brewer.UploadFoto = (function() {
 		this.contentType.val('');
 	}
 	
-	function addCsrfToken(xhr) {
+	function addCsrfToken(e) {
 		var token = $('input[name=_csrf]').val();
-		var header = $('input[name=_csrf_header]').val();
-		xhr.setRequestHeader(header, token);
+		e.headers = {'X-CSRF-TOKEN': token}
 	}
 	
 	return UploadFoto;
