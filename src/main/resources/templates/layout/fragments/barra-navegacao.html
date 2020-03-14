@@ -17,6 +17,13 @@
 			</div>
 			
 			<ul class="nav navbar-nav  navbar-right">
+				<li>
+					<p class="navbar-text">
+						<strong>OLÁ.: </strong>
+						<span th:text="${#authentication.principal.usuario.nome}"></span>
+					</p>
+				</li>
+				
 		      	<li>
 		      		<a th:href="@{/logout}"><span class="fa  fa-sign-out"></span></a>
 		      	</li> 
