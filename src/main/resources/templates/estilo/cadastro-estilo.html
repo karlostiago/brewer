@@ -29,7 +29,7 @@
 		</div>
 		
 		<div class="container-fluid">
-			<form method="post" th:object="${estilo}" th:action="${/estilos/novo}" class="form-vertical  js-form-loading">
+			<form method="post" th:object="${estilo}" th:action="@{/estilos/novo}" class="form-vertical  js-form-loading">
 				
 				<th:block th:include="layout/fragments/mensagem-sucesso"></th:block>				
 				<th:block th:include="layout/fragments/mensagem-erro-validacao"></th:block>

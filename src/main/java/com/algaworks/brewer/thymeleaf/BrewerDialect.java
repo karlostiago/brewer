@@ -7,6 +7,7 @@ import org.thymeleaf.dialect.AbstractProcessorDialect;
 import org.thymeleaf.processor.IProcessor;
 import org.thymeleaf.standard.StandardDialect;
 
+import com.algaworks.brewer.thymeleaf.processor.ClassForActiveElementTagProcessor;
 import com.algaworks.brewer.thymeleaf.processor.ClassForErrorAttributeTagProcessor;
 import com.algaworks.brewer.thymeleaf.processor.MessageElementTagProcessor;
 import com.algaworks.brewer.thymeleaf.processor.OrderElementTagProcessor;
@@ -26,6 +27,7 @@ public class BrewerDialect extends AbstractProcessorDialect {
 		processadores.add(new MessageElementTagProcessor(dialectPrefix));
 		processadores.add(new OrderElementTagProcessor(dialectPrefix));
 		processadores.add(new PaginatorElementTagProcessor(dialectPrefix));
+		processadores.add(new ClassForActiveElementTagProcessor(dialectPrefix));
 		return processadores;
 	}
 

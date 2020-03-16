@@ -16,6 +16,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -23,6 +24,7 @@ import com.algaworks.brewer.validation.ValidadorDeSenha;
 
 @ValidadorDeSenha(password = "senha", confirmation = "confirmacaoDeSenha")
 @Entity
+@DynamicUpdate
 @Table(name = "usuario")
 public class Usuario extends AbstractModel implements Serializable {
 
@@ -57,6 +59,10 @@ public class Usuario extends AbstractModel implements Serializable {
 	private void preInsertUpdate() {
 		this.nome = this.nome.toUpperCase();
 		this.email = this.email.toUpperCase();
+		
+		if(getCodigo() != null) {
+			this.confirmacaoDeSenha = this.senha;
+		}
 	}
 
 	public String getNome() {

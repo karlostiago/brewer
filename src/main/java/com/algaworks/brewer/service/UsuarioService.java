@@ -9,8 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.algaworks.brewer.enums.StatusUsuario;
 import com.algaworks.brewer.exceptions.BrewerRuntimeException;
 import com.algaworks.brewer.model.Usuario;
 import com.algaworks.brewer.repository.Usuarios;
@@ -57,5 +59,10 @@ public class UsuarioService extends AbstractService<Usuario, Long> {
 
 	public Page<Usuario> filtrar(UsuarioFilter filter, Pageable pageable) {
 		return usuarios.filtrar(filter, pageable);
+	}
+	
+	@Transactional
+	public void updateStatus(Long[] codigos, StatusUsuario acao) {
+		acao.executar(codigos, usuarios);
 	}
 }

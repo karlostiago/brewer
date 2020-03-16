@@ -103,6 +103,12 @@ label.bw-required:after {
 	text-align: center;
 }
 
+/* .table-usuarios-col-nome,
+.table-usuarios-col-email {
+	width: 220px;
+	text-align: left;
+} */
+
 .table-cervejas-col-estilo,
 .table-clientes-col-tipoPessoa {
 	width: 120px;

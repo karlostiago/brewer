@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -27,6 +29,12 @@ public class Grupo extends AbstractModel implements Serializable {
 	@JoinTable(name = "grupo_permissao", joinColumns = @JoinColumn(name = "codigo_grupo")
 		,inverseJoinColumns = @JoinColumn(name = "codigo_permissao"))
 	private List<Permissao> permissoes;
+	
+	@PrePersist
+	@PreUpdate
+	private void preInsertUpdate() {
+		this.nome = this.nome.toUpperCase();
+	}
 	
 	@PostLoad
 	public void postLoad() {
